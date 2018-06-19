@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.1">
+  <file datatype="php" original="src/Resources/contao/languages/en/tl_page.php" source-language="en">
+    <body>
+      <trans-unit id="tl_page.manifest_legend">
+        <source>Manifest settings</source>
+      </trans-unit>
+      <trans-unit id="tl_page.createManifest.0">
+        <source>Enable manifest</source>
+      </trans-unit>
+      <trans-unit id="tl_page.createManifest.1">
+        <source>Enable manifest creation for this root page</source>
+      </trans-unit>
+      <trans-unit id="tl_page.manifestAlias.0">
+        <source>Manifest file name</source>
+      </trans-unit>
+      <trans-unit id="tl_page.manifestAlias.1">
+        <source>Please enter the name of the manifest file without extension.</source>
+      </trans-unit>
+      <trans-unit id="tl_page.manifestBackgroundColor.0">
+        <source>Background color</source>
+      </trans-unit>
+      <trans-unit id="tl_page.manifestBackgroundColor.1">
+        <source>Defines the expected "background color" for the website. This value repeats what is already available in the site’s CSS, but can be used by browsers to draw the background color of a shortcut when the manifest is available before the stylesheet has loaded. This creates a smooth transition between launching the web application and loading the site's content.</source>
+      </trans-unit>
+      <trans-unit id="tl_page.manifestDescription.0">
+        <source>Description</source>
+      </trans-unit>
+      <trans-unit id="tl_page.manifestDescription.1">
+        <source>Provides a general description of what the pinned website does.</source>
+      </trans-unit>
+      <trans-unit id="tl_page.manifestDir.0">
+        <source>Text direction</source>
+      </trans-unit>
+      <trans-unit id="tl_page.manifestDir.1">
+        <source>Specifies the primary text direction for the name, short_name, and description members. Together with the lang member, it helps the correct display of right-to-left languages.</source>
+      </trans-unit>
+      <trans-unit id="tl_page.manifestDisplay.0">
+        <source>Display mode</source>
+      </trans-unit>
+      <trans-unit id="tl_page.manifestDisplay.1">
+        <source>Defines the developers preferred display mode for the website.</source>
+      </trans-unit>
+      <trans-unit id="tl_page.manifestDisplayLabel.0">
+        <source></source>
+      </trans-unit>
+      <trans-unit id="tl_page.manifestDisplayLabel.1">
+        <source></source>
+      </trans-unit>
+      <trans-unit id="tl_page.manifestIcon.0">
+        <source>Icons</source>
+      </trans-unit>
+      <trans-unit id="tl_page.manifestIcon.1">
+        <source>Specifies an array of image files that can serve as application icons, depending on context. For example, they can be used to represent the web application amongst a list of other applications, or to integrate the web application with an OS's task switcher and/or system preferences.</source>
+      </trans-unit>
+      <trans-unit id="tl_page.manifestName.0">
+        <source>Name</source>
+      </trans-unit>
+      <trans-unit id="tl_page.manifestName.1">
+        <source>Provides a human-readable name for the site when displayed to the user.</source>
+      </trans-unit>
+      <trans-unit id="tl_page.manifestOrientation.0">
+        <source>Default orientation</source>
+      </trans-unit>
+      <trans-unit id="tl_page.manifestOrientation.1">
+        <source>Defines the default orientation for all the website's top level browsing contexts.</source>
+      </trans-unit>
+      <trans-unit id="tl_page.manifestOrientationLabel.0">
+        <source></source>
+      </trans-unit>
+      <trans-unit id="tl_page.manifestOrientationLabel.1">
+        <source></source>
+      </trans-unit>
+      <trans-unit id="tl_page.manifestShortName.0">
+        <source>Short name</source>
+      </trans-unit>
+      <trans-unit id="tl_page.manifestShortName.1">
+        <source>Provides a short human-readable name for the application. This is intended for when there is insufficient space to display the full name of the web application, like device homescreens.</source>
+      </trans-unit>
+      <trans-unit id="tl_page.manifestStartUrl.0">
+        <source>Start url</source>
+      </trans-unit>
+      <trans-unit id="tl_page.manifestStartUrl.1">
+        <source>The URL that loads when a user launches the application (e.g. when added to home screen), typically the index. Note that this has to be a relative URL, relative to the manifest url.</source>
+      </trans-unit>
+      <trans-unit id="tl_page.manifestThemeColor.0">
+        <source>Theme color</source>
+      </trans-unit>
+      <trans-unit id="tl_page.manifestThemeColor.1">
+        <source>Defines the default theme color for an application. This sometimes affects how the OS displays the site (e.g., on Android's task switcher, the theme color surrounds the site).</source>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

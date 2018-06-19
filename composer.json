@@ -1,0 +1,31 @@
+{
+  "name": "pdir/pwa-bundle",
+  "description": "Progressive Web App bundle for Contao CMS",
+  "type": "contao-bundle",
+  "authors": [
+    {
+      "name": "Mathias Arzberger",
+      "email": "develop@pdir.de",
+      "homepage": "https://pdir.de"
+    }
+  ],
+  "require": {
+    "php": "~5.6 || ~7.0",
+    "contao/core-bundle": "~4.4",
+    "codefog/contao-haste": "~4.15"
+  },
+  "extra": {
+    "contao-manager-plugin": "Pdir\\PwaBundle\\ContaoManager\\Plugin"
+  },
+  "autoload": {
+    "psr-4": {
+      "Pdir\\PwaBundle\\": "src/"
+    }
+  },
+  "support": {
+    "issues": "https://github.com/pdir/pwa-bundle/issues",
+    "forum": "https://community.contao.org",
+    "source": "https://github.com/pdir/pwa-bundle",
+    "docs": "https://docs.pdir.de"
+  }
+}

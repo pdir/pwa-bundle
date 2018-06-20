@@ -12,7 +12,8 @@
   "require": {
     "php": "~5.6 || ~7.0",
     "contao/core-bundle": "~4.4",
-    "codefog/contao-haste": "~4.15"
+    "codefog/contao-haste": "~4.15",
+    "pdir/manifest-generator": "~1.0"
   },
   "extra": {
     "contao-manager-plugin": "Pdir\\PwaBundle\\ContaoManager\\Plugin"

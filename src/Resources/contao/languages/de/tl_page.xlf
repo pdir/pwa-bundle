@@ -59,11 +59,11 @@
       <trans-unit id="tl_page.manifestDisplayLabel.1">
         <source/>
       </trans-unit>
-      <trans-unit id="tl_page.manifestIcon.0">
+      <trans-unit id="tl_page.manifestIcons.0">
         <source>Icons</source>
         <target>Symbole</target>
       </trans-unit>
-      <trans-unit id="tl_page.manifestIcon.1">
+      <trans-unit id="tl_page.manifestIcons.1">
         <source>Specifies an array of image files that can serve as application icons, depending on context. For example, they can be used to represent the web application amongst a list of other applications, or to integrate the web application with an OS's task switcher and/or system preferences.</source>
         <target>Gibt ein Array von Bildobjekten an, die als Anwendungssymbole in verschiedenen Kontexten dienen können. Zum Beispiel können sie verwendet werden, um die Webanwendung unter einer Liste anderer Anwendungen darzustellen oder die Webanwendung mit einem Task-Switcher und / oder Systemeinstellungen eines Betriebssystems zu integrieren.</target>
       </trans-unit>

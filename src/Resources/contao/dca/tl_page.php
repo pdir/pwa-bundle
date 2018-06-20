@@ -30,7 +30,7 @@ $GLOBALS['TL_DCA']['tl_page']['config']['onload_callback'][] = ['Pdir\PwaBundle\
         'manifestOrientation',
         'manifestDir',
         'manifestDisplay',
-        'manifestIcon',
+        'manifestIcons',
         'manifestStartUrl'
     ), 'manifest_legend', \Haste\Dca\PaletteManipulator::POSITION_APPEND)
     ->applyToPalette('root', 'tl_page');
@@ -116,8 +116,8 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['manifestDisplay'] = array(
     'sql'                     => "varchar(14) NOT NULL default ''",
 );
 
-$GLOBALS['TL_DCA']['tl_page']['fields']['manifestIcon'] = array(
-    'label'                   => &$GLOBALS['TL_LANG']['tl_page']['manifestIcon'],
+$GLOBALS['TL_DCA']['tl_page']['fields']['manifestIcons'] = array(
+    'label'                   => &$GLOBALS['TL_LANG']['tl_page']['manifestIcons'],
     'inputType' => 'fileTree',
     'eval' => array(
         'files' => true,

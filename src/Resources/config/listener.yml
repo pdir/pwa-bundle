@@ -1,0 +1,6 @@
+services:
+  pwa.head.listener.hooks:
+    class: Pdir\PwaBundle\EventListener\HookListener
+    public: true
+    arguments:
+      - "@contao.framework"

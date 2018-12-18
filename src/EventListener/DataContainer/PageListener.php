@@ -12,12 +12,22 @@
 namespace Pdir\PwaBundle\EventListener\DataContainer;
 
 use Contao\DataContainer;
+use Contao\Environment;
+use Contao\FrontendTemplate;
 use Contao\PageModel;
+use Pdir\PwaBundle\Helper\ServiceWorker;
 
 class PageListener
 {
 
     public $fieldPrefix = 'manifest';
+
+    /**
+     * Template.
+     *
+     * @var string
+     */
+    protected $strServiceWorkerTemplate = 'serviceworker.js';
 
     /**
      * Update manifest json in share folder
@@ -37,7 +47,7 @@ class PageListener
             return;
         }
 
-        while ($objRoot->next()) {
+        while ($objRoot->next() && $objRoot->dns) {
 
             $arrManifest = $this->getManifestFieldsFromPageObj($objRoot->fetchAllAssoc()[0]);
 
@@ -117,6 +127,60 @@ class PageListener
         }
 
         return $newArr;
+    }
+
+    /**
+     * Update service worker javascript in share folder
+     *
+     * @param DataContainer $dc
+     */
+    public function updateServiceWorker(DataContainer $dc)
+    {
+        $objDatabase = \Database::getInstance();
+
+        $objRoot = $objDatabase->prepare("SELECT * FROM tl_page WHERE id=?")
+            ->limit(1)
+            ->execute($dc->id);
+
+        if ($objRoot->numRows < 1 && $objRoot->dns)
+        {
+            return;
+        }
+
+        while ($objRoot->next()) {
+
+            if(!$objRoot->dns)
+            {
+                // Add a log entry
+                \System::log('Update ServiceWorker fails: No Domain is set in Root Page', __METHOD__, TL_ERROR);
+                return;
+            }
+
+            $strRootUrl = (Environment::get('ssl') ? 'https://' : 'http://') .  $objRoot->dns . TL_PATH . '/';
+
+            $objTemplate = new FrontendTemplate(deserialize($this->strServiceWorkerTemplate));
+
+            $objServiceWorker = new ServiceWorker($strRootUrl, $objRoot->pwaPreCachedPages, $objRoot->pwaOfflinePage);
+            $objTemplate->rootUrl = $objServiceWorker->getRootUrl();
+            $objTemplate->externalScriptUrls = $objServiceWorker->getExternalScriptUrls();
+            $objTemplate->customStrategies = $objServiceWorker->getCustomStrategies();
+            $objTemplate->backendPathPrefix = $objServiceWorker->getBackendPathPrefix();
+            $objTemplate->extensionsHtml = $objServiceWorker->getExtensionsHtml();
+            $objTemplate->preCachedPages = $objServiceWorker->getPreCachedPages();
+
+            // echo "<pre>"; print_r($objTemplate); echo "</pre>";
+
+            $strTemplate = $objTemplate->parse();
+
+            $objFile = new \File(\StringUtil::stripRootDir(\System::getContainer()->getParameter('contao.web_dir')) . '/share/sw' . $objRoot->id . '.js');
+            $objFile->truncate();
+            $objFile->append($strTemplate);
+            $objFile->close();
+
+            // Add a log entry
+            \System::log('Update ServiceWorker for ' . $strRootUrl, __METHOD__, TL_CONFIGURATION);
+        }
+
     }
 }
 

@@ -53,6 +53,19 @@ class HookListener
         {
             $GLOBALS['TL_HEAD'][] = '<link rel="manifest" href="share/' . $rootPage->manifestAlias . '.webmanifest" />';
         }
+
+        if($rootPage->includeServiceWorker)
+        {
+            $GLOBALS['TL_HEAD'][] = <<<EOF
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('share/sw{$rootPage->id }.js', {scope: '/'})
+      .then(() => console.log('service worker installed'))
+      .catch(err => console.error('Error', err));
+  }
+  </script>
+EOF;
+        }
     }
 
 }

@@ -1,0 +1,133 @@
+
+//
+// Import external dependencies
+//
+
+<?php if ($this->externalScriptUrls): ?>
+importScripts(<?php echo implode(", ", array_map(function ($url) { return "'{$url}'"; }, $this->externalScriptUrls)) ?>);
+<?php endif; ?>
+
+//
+// Initialize external dependencies
+//
+
+// workbox.googleAnalytics.initialize();
+
+//
+// Initialize the workbox service worker
+//
+
+workbox.setConfig({
+  debug: true,
+  modulePathPrefix: '/bundles/pwa/js/vendor/'
+});
+
+workbox.skipWaiting();
+workbox.clientsClaim();
+workbox.precaching.precacheAndRoute([]);
+
+//
+// Serve assets using cache-first strategy
+//
+const FALLBACK_IMAGE_URL = '/images/fallback.png';
+const imagesHandler = workbox.strategies.cacheFirst({
+  cacheName: 'image-cache',
+  plugins: [
+    new workbox.expiration.Plugin({
+      // Only cache requests for a week
+      maxAgeSeconds: 7 * 24 * 60 * 60,
+      // Only cache 10 requests.
+      maxEntries: 50,
+    }),
+  ]
+});
+
+workbox.routing.registerRoute(
+  new RegExp(/\.(png|jpeg|jpg|gif)$/),
+  ({event}) => {
+    return imagesHandler.handle({event})
+      .catch(() => caches.match(FALLBACK_IMAGE_URL));
+  }
+);
+
+workbox.routing.registerRoute(
+  new RegExp(/\.(js|css)$/),
+  workbox.strategies.cacheFirst({
+    cacheName: 'static-cache',
+  })
+);
+
+//
+// Serve paths with configured custom strategies
+//
+
+const custom_strategies = <?= $this->customStrategies ?>;
+
+for (let route of custom_strategies) {
+  workbox.routing.registerRoute(route.path, ({event}) => {
+    return workbox.strategies.cacheFirst().handle({event})
+      .then((response) => {
+        if (!response && event.request.mode == 'navigate') {
+          return caches.match(OFFLINE_PAGE_URL);
+        }
+      return response;
+    })
+    .catch(() => event.request.mode == 'navigate' ? caches.match(OFFLINE_PAGE_URL) : Response.error());
+  });
+}
+
+//
+// Precache given pages
+//
+
+const precached_pages = <?= $this->preCachedPages ?>;
+
+console.log(precached_pages);
+
+for (let route of precached_pages) {
+  workbox.precaching.precacheAndRoute(route, ({event}) => {
+    return workbox.strategies.cacheFirst().handle({event})
+      .then((response) => {
+        if (!response && event.request.mode == 'navigate') {
+          return caches.match(OFFLINE_PAGE_URL);
+        }
+      return response;
+    })
+    .catch(() => event.request.mode == 'navigate' ? caches.match(OFFLINE_PAGE_URL) : Response.error());
+  });
+}
+
+//
+// is offline
+//
+
+//workbox.routing.registerRoute(
+//({ event }) => event.request.mode === 'navigate',
+//({ url }) => fetch(url.href).catch(() => caches.match('/offline.html'))
+//)
+
+//
+// Serve backend requests with network-only strategy
+//
+const networkOnly = workbox.strategies.networkOnly();
+
+const network_only = [
+  '<?= $this->backendPathPrefix ?>',
+  new RegExp('<?= $this->backendPathPrefix ?>/*'),
+  '<?= $this->rootUrl ?>assets/tinymce4/js/themes/modern/theme.min.js',
+  '<?= $this->rootUrl ?>contao-manager.phar.php',
+  '_contao/cron',
+  new RegExp('/contao-manager.phar.php/*'),
+];
+
+for (let route of network_only) {
+  workbox.routing.registerRoute(route, networkOnly);
+}
+
+<?php if($extensionsHtml = $this->extensionsHtml): ?>
+//
+// Add Extensions
+//
+
+<?= $extensionsHtml ?>
+<?php endif; ?>

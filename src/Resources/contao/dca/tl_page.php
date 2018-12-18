@@ -13,6 +13,7 @@
  * Callbacks
  */
 $GLOBALS['TL_DCA']['tl_page']['config']['onload_callback'][] = ['Pdir\PwaBundle\EventListener\DataContainer\PageListener', 'updateManifest'];
+$GLOBALS['TL_DCA']['tl_page']['config']['onload_callback'][] = ['Pdir\PwaBundle\EventListener\DataContainer\PageListener', 'updateServiceWorker'];
 
 /**
  * Extend tl_page palettes
@@ -35,10 +36,26 @@ $GLOBALS['TL_DCA']['tl_page']['config']['onload_callback'][] = ['Pdir\PwaBundle\
     ), 'manifest_legend', \Haste\Dca\PaletteManipulator::POSITION_APPEND)
     ->applyToPalette('root', 'tl_page');
 
+\Haste\Dca\PaletteManipulator::create()
+    ->addLegend('service_worker_legend', 'manifest_legend', \Haste\Dca\PaletteManipulator::POSITION_AFTER)
+    ->addField('includeServiceWorker', 'service_worker_legend', \Haste\Dca\PaletteManipulator::POSITION_APPEND)
+    ->addField(array(
+        'pwaExternalScripts',
+        'pwaFallbackImage',
+        'pwaImagesMaxAge',
+        'pwaImagesMaxEntries',
+        'pwaCustomStrategies',
+        'pwaOfflinePage',
+        'pwaGaOfflineEnabled',
+        'pwaPreCachedPages',
+    ), 'service_worker_legend', \Haste\Dca\PaletteManipulator::POSITION_APPEND)
+    ->applyToPalette('root', 'tl_page');
+
 /**
  * Add a selector to tl_page
  */
 $GLOBALS['TL_DCA']['tl_page']['palettes']['__selector__'][] = 'createManifest';
+$GLOBALS['TL_DCA']['tl_page']['palettes']['__selector__'][] = 'includeServiceWorker';
 
 /**
  * Add fields to tl_page
@@ -199,4 +216,48 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['manifestThemeColor'] = array(
     'inputType'               => 'text',
     'eval'                    => array('maxlength'=>6, 'multiple'=>true, 'size'=>2, 'colorpicker'=>true, 'isHexColor'=>true, 'decodeEntities'=>true, 'tl_class'=>'w50 wizard'),
     'sql'                     => "varchar(64) NOT NULL default ''",
+);
+
+$GLOBALS['TL_DCA']['tl_page']['fields']['includeServiceWorker'] = array
+(
+    'label'                   => &$GLOBALS['TL_LANG']['tl_page']['includeServiceWorker'],
+    'exclude'                 => true,
+    'inputType'               => 'checkbox',
+    'eval'                    => array('submitOnChange'=>true),
+    'sql'                     => "char(1) NOT NULL default ''",
+);
+
+// 'pwaExternalScripts',
+
+$GLOBALS['TL_DCA']['tl_page']['fields']['pwaFallbackImage'] = array(
+    'label'                   => &$GLOBALS['TL_LANG']['tl_page']['pwaFallbackImage'],
+    'inputType' => 'fileTree',
+    'eval' => array(
+        'files' => true,
+        'filesOnly' => true,
+        'extensions' => 'jpg,png,gif,svg',
+        'fieldType' => 'radio',
+        'tl_class' => 'clr',
+    ),
+    'sql'                     => "blob NULL",
+);
+
+// 'pwaImagesMaxAge',
+// 'pwaImagesMaxEntries',
+// 'pwaCustomStrategies',
+
+$GLOBALS['TL_DCA']['tl_page']['fields']['pwaOfflinePage'] = array(
+    'label'                   => &$GLOBALS['TL_LANG'][$strName]['pwaOfflinePage'],
+    'exclude'                 => true,
+    'inputType'               => 'pageTree',
+    'eval'                    => array('fieldType'=>'radio', 'tl_class'=>'clr'),
+    'sql'                     => "blob NULL"
+);
+
+$GLOBALS['TL_DCA']['tl_page']['fields']['pwaPreCachedPages'] = array(
+    'label'                   => &$GLOBALS['TL_LANG'][$strName]['pwaPreCachedPages'],
+    'exclude'                 => true,
+    'inputType'               => 'pageTree',
+    'eval'                    => array('fieldType'=>'checkbox', 'tl_class'=>'clr', 'multiple'=>true),
+	'sql'                     => "blob NULL"
 );

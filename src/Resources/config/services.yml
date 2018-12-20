@@ -1,3 +1,4 @@
 services:
   contao.manifest.generator:
     class: Pdir\ManifestGenerator\ManifestGenerator
+    public: true

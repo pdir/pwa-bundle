@@ -47,16 +47,21 @@ class PageListener
             return;
         }
 
-        while ($objRoot->next() && $objRoot->dns) {
+        while ($objRoot->next() && $objRoot->createManifest) {
 
-            $arrManifest = $this->getManifestFieldsFromPageObj($objRoot->fetchAllAssoc()[0]);
+            //echo "<br>Manifest<pre>"; print_r($objRoot->fetchAllAssoc()[0]); echo "</pre>";
+
+            $arrManifest = $this->getManifestFieldsFromPageObj($objRoot->pwaConfig);
+
+            echo "<br>Manifest<pre>"; print_r($arrManifest); echo "</pre>";
 
             // remove alias
+            $strAlias = $arrManifest['Alias'];
             unset($arrManifest['Alias']);
 
             // start url
             $startUrl = \PageModel::findByPk($arrManifest['StartUrl']);
-            $arrManifest['StartUrl'] = $startUrl->getFrontendUrl() ? $startUrl->getFrontendUrl() : '/';
+            $arrManifest['StartUrl'] = $startUrl !== null ? $startUrl->getFrontendUrl() : '/';
 
             // icons
             // @todo implement multiple icons
@@ -80,53 +85,51 @@ class PageListener
             // get json from manifest generator
             $manifestJson = \System::getContainer()->get('contao.manifest.generator')->toJson($arrManifest);
 
-            $objFile = new \File(\StringUtil::stripRootDir(\System::getContainer()->getParameter('contao.web_dir')) . '/share/' . $objRoot->manifestAlias . '.webmanifest');
+            $objFile = new \File(\StringUtil::stripRootDir(\System::getContainer()->getParameter('contao.web_dir')) . '/share/' . $strAlias. '.webmanifest');
             $objFile->truncate();
             $objFile->append($manifestJson);
             $objFile->close();
 
             // Add a log entry
-            \System::log('Generated manifest "' . $objRoot->manifestAlias . '.webmanifest"', __METHOD__, TL_CRON);
+            \System::log('Generated manifest "' . $strAlias . '.webmanifest"', __METHOD__, TL_CRON);
         }
     }
 
-    /**
-     * Check the manifest alias
-     *
-     * @param mixed         $varValue
-     * @param DataContainer $dc
-     *
-     * @return mixed
-     *
-     * @throws Exception
-     */
-    public function checkManifestAlias($varValue, DataContainer $dc)
+    private function getManifestFieldsFromPageObj($id)
     {
-        // No change or empty value
-        if ($varValue == $dc->value || $varValue == '')
-        {
-            return $varValue;
+        $objDatabase = \Database::getInstance();
+
+        //echo "<br>PWAConfig: " . $id;
+
+        $objPwaConfig = $objDatabase->prepare("SELECT * FROM tl_pwa_config WHERE id=?")
+            ->limit(1)
+            ->execute($id);
+
+        if ($objPwaConfig->numRows < 1) {
+            return;
         }
-        $varValue = \StringUtil::standardize($varValue); // see #5096
 
-        // @todo implement check for existing alias
+        while ($objPwaConfig->next()) {
+            $arr = $objPwaConfig->fetchAllAssoc()[0];
 
-        return $varValue;
-    }
+            // echo "<br>objPwaConfig<pre>"; print_r($objPwaConfig); echo "</pre>";
 
+            //echo "<br>while!";
+            $newArr = [];
+            foreach ($arr as $key => $value) {
 
-    private function getManifestFieldsFromPageObj($arr)
-    {
-        $newArr = [];
-        foreach($arr as $key => $value)
-        {
-            if(preg_match('/^' . $this->fieldPrefix . '/', $key))
-            {
-                $newArr[str_replace($this->fieldPrefix, '', $key)] = $value;
+                //echo "<br>Key:" . $key;
+                //echo "<br>Val:" . $value;
+
+                if (preg_match('/^' . $this->fieldPrefix . '/', $key)) {
+                    $newArr[str_replace($this->fieldPrefix, '', $key)] = $value;
+                }
             }
-        }
 
-        return $newArr;
+            //echo "<br>newArr<pre>"; print_r($newArr); echo "</pre>";
+
+            return $newArr;
+        }
     }
 
     /**

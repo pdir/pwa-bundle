@@ -51,7 +51,7 @@ class HookListener
 
         if($rootPage->createManifest)
         {
-            $GLOBALS['TL_HEAD'][] = '<link rel="manifest" href="share/' . $rootPage->manifestAlias . '.webmanifest" />';
+            $GLOBALS['TL_HEAD'][] = '<link rel="manifest" href="share/camp' . $rootPage->manifestAlias . '.webmanifest" />';
         }
 
         if($rootPage->includeServiceWorker)

@@ -116,7 +116,7 @@ const network_only = [
   new RegExp('<?= $this->backendPathPrefix ?>/*'),
   '<?= $this->rootUrl ?>assets/tinymce4/js/themes/modern/theme.min.js',
   '<?= $this->rootUrl ?>contao-manager.phar.php',
-  '_contao/cron',
+  '<?= $this->rootUrl ?>_contao/cron',
   new RegExp('/contao-manager.phar.php/*'),
 ];
 

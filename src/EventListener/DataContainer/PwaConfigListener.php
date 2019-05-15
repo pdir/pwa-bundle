@@ -3,7 +3,7 @@
 /**
  * Progressive Web App bundle for Contao Open Source CMS
  *
- * Copyright (C) 2018 pdir GmbH <https://pdir.de>
+ * Copyright (C) 2019 pdir GmbH <https://pdir.de>
  * @author  Mathias Arzberger <https://pdir.de>
  *
  * @license    https://opensource.org/licenses/lgpl-3.0.html
@@ -92,11 +92,9 @@ class PwaConfigListener
             $objTemplate->extensionsHtml = $objServiceWorker->getExtensionsHtml();
             $objTemplate->preCachedPages = $objServiceWorker->getPreCachedPages();
 
-            // echo "<pre>"; print_r($objTemplate); echo "</pre>";
-
             $strTemplate = $objTemplate->parse();
 
-            $objFile = new \File(\StringUtil::stripRootDir(\System::getContainer()->getParameter('contao.web_dir')) . '/share/sw' . $objRoot->id . '.js');
+            $objFile = new \File(\StringUtil::stripRootDir(\System::getContainer()->getParameter('contao.web_dir')) . '/sw' . $objRoot->id . '.js');
             $objFile->truncate();
             $objFile->append($strTemplate);
             $objFile->close();

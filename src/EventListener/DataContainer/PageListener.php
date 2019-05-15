@@ -3,7 +3,7 @@
 /**
  * Progressive Web App bundle for Contao Open Source CMS
  *
- * Copyright (C) 2018 pdir GmbH <https://pdir.de>
+ * Copyright (C) 2019 pdir GmbH <https://pdir.de>
  * @author  Mathias Arzberger <https://pdir.de>
  *
  * @license    https://opensource.org/licenses/lgpl-3.0.html
@@ -49,11 +49,7 @@ class PageListener
 
         while ($objRoot->next() && $objRoot->createManifest) {
 
-            //echo "<br>Manifest<pre>"; print_r($objRoot->fetchAllAssoc()[0]); echo "</pre>";
-
             $arrManifest = $this->getManifestFieldsFromPageObj($objRoot->pwaConfig);
-
-            echo "<br>Manifest<pre>"; print_r($arrManifest); echo "</pre>";
 
             // remove alias
             $strAlias = $arrManifest['Alias'];
@@ -68,16 +64,24 @@ class PageListener
             $objFileModel = \FilesModel::findByUuid($arrManifest['Icons']);
 
             if ($objFileModel !== null) {
-                $arrManifest['Icons'] = array(array(
-                    "src" => $objFileModel->path ? $objFileModel->path : 'bundles/pwabundle/icon.png',
-                    // "sizes" => @todo add sizes
-                    // "type" => $objFileModel->type, @todo add image type
-                ));
+                $arrManifest['Icons'] = [
+                    [
+                        'src' => $objFileModel->path ? '/files/mate/img/apt-icon.png' : '/bundles/pwabundle/icon.png',
+                        'sizes' => '192x192'
+                        // "type" => $objFileModel->type, @todo add image type
+                    ],
+                    [
+                        'src' => $objFileModel->path ? '/files/mate/img/apt-icon-512x512.png' : '/bundles/pwabundle/icon.png',
+                        'sizes' => '512x512'
+                    ]
+                ];
             }
 
             // colors
             $arrManifest['ThemeColor'] = unserialize($arrManifest['ThemeColor'])[0];
             $arrManifest['BackgroundColor'] = unserialize($arrManifest['BackgroundColor'])[0];
+
+            $arrManifest['Scope'] = '/';
 
             // get lang from page
             $arrManifest['Lang'] = $objRoot->language;
@@ -99,8 +103,6 @@ class PageListener
     {
         $objDatabase = \Database::getInstance();
 
-        //echo "<br>PWAConfig: " . $id;
-
         $objPwaConfig = $objDatabase->prepare("SELECT * FROM tl_pwa_config WHERE id=?")
             ->limit(1)
             ->execute($id);
@@ -112,21 +114,13 @@ class PageListener
         while ($objPwaConfig->next()) {
             $arr = $objPwaConfig->fetchAllAssoc()[0];
 
-            // echo "<br>objPwaConfig<pre>"; print_r($objPwaConfig); echo "</pre>";
-
-            //echo "<br>while!";
             $newArr = [];
             foreach ($arr as $key => $value) {
-
-                //echo "<br>Key:" . $key;
-                //echo "<br>Val:" . $value;
 
                 if (preg_match('/^' . $this->fieldPrefix . '/', $key)) {
                     $newArr[str_replace($this->fieldPrefix, '', $key)] = $value;
                 }
             }
-
-            //echo "<br>newArr<pre>"; print_r($newArr); echo "</pre>";
 
             return $newArr;
         }
@@ -171,11 +165,9 @@ class PageListener
             $objTemplate->extensionsHtml = $objServiceWorker->getExtensionsHtml();
             $objTemplate->preCachedPages = $objServiceWorker->getPreCachedPages();
 
-            // echo "<pre>"; print_r($objTemplate); echo "</pre>";
-
             $strTemplate = $objTemplate->parse();
 
-            $objFile = new \File(\StringUtil::stripRootDir(\System::getContainer()->getParameter('contao.web_dir')) . '/share/sw' . $objRoot->id . '.js');
+            $objFile = new \File(\StringUtil::stripRootDir(\System::getContainer()->getParameter('contao.web_dir')) . '/sw' . $objRoot->id . '.js');
             $objFile->truncate();
             $objFile->append($strTemplate);
             $objFile->close();

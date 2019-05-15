@@ -3,7 +3,7 @@
 /**
  * Progressive Web App bundle for Contao Open Source CMS
  *
- * Copyright (C) 2018 pdir GmbH <https://pdir.de>
+ * Copyright (C) 2019 pdir GmbH <https://pdir.de>
  * @author  Mathias Arzberger <https://pdir.de>
  *
  * @license    https://opensource.org/licenses/lgpl-3.0.html
@@ -12,6 +12,7 @@
 namespace Pdir\PwaBundle\EventListener;
 
 use Contao\CoreBundle\Framework\ContaoFrameworkInterface;
+use Contao\CoreBundle\Util\SymlinkUtil;
 use Contao\LayoutModel;
 use Contao\PageModel;
 use Contao\PageRegular;
@@ -24,6 +25,12 @@ class HookListener
     private $framework;
 
     /**
+     * Root dir
+     * @var string
+     */
+    protected $strRootDir;
+
+    /**
      * Constructor.
      *
      * @param ContaoFrameworkInterface $framework
@@ -31,6 +38,7 @@ class HookListener
     public function __construct(ContaoFrameworkInterface $framework)
     {
         $this->framework = $framework;
+        $this->strRootDir = \System::getContainer()->getParameter('kernel.project_dir');
     }
 
     /**
@@ -56,15 +64,19 @@ class HookListener
 
         if($rootPage->includeServiceWorker)
         {
+            // generate symlink if not exists
+            // SymlinkUtil::symlink('web/share/sw' . $rootPage->id . 'js', 'web/sw' . $rootPage->id . '.js', $this->strRootDir);
+
             $GLOBALS['TL_HEAD'][] = <<<EOF
 <script>
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('share/sw{$rootPage->id }.js', {scope: '/'})
+    navigator.serviceWorker.register('/sw{$rootPage->id}.js', {scope: '/'})
       .then(() => console.log('service worker installed'))
       .catch(err => console.error('Error', err));
   }
   </script>
 EOF;
+
         }
     }
 

@@ -12,7 +12,7 @@
 /**
  * Callbacks
  */
-$GLOBALS['TL_DCA']['tl_page']['config']['onload_callback'][] = ['Pdir\PwaBundle\EventListener\DataUpdate ServiceWorker failsContainer\PageListener', 'updateManifest'];
+$GLOBALS['TL_DCA']['tl_page']['config']['onload_callback'][] = ['Pdir\PwaBundle\EventListener\DataContainer\PageListener', 'updateManifest'];
 $GLOBALS['TL_DCA']['tl_page']['config']['onload_callback'][] = ['Pdir\PwaBundle\EventListener\DataContainer\PageListener', 'updateServiceWorker'];
 
 /**

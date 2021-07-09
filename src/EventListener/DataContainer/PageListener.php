@@ -49,6 +49,9 @@ class PageListener
 
         while ($objRoot->next() && $objRoot->createManifest) {
 
+            if(!$objRoot->pwaConfig)
+                return;
+
             $arrManifest = $this->getManifestFieldsFromPageObj($objRoot->pwaConfig);
 
             // remove alias
@@ -66,12 +69,12 @@ class PageListener
             if ($objFileModel !== null) {
                 $arrManifest['Icons'] = [
                     [
-                        'src' => $objFileModel->path ? '/files/mate/img/apt-icon.png' : '/bundles/pwabundle/icon.png',
+                        'src' => $objFileModel->path ? : '/bundles/pwabundle/icon.png',
                         'sizes' => '192x192'
                         // "type" => $objFileModel->type, @todo add image type
                     ],
                     [
-                        'src' => $objFileModel->path ? '/files/mate/img/apt-icon-512x512.png' : '/bundles/pwabundle/icon.png',
+                        'src' => $objFileModel->path ? : '/bundles/pwabundle/icon.png',
                         'sizes' => '512x512'
                     ]
                 ];

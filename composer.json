@@ -2,6 +2,7 @@
   "name": "pdir/pwa-bundle",
   "description": "Progressive Web App bundle for Contao CMS",
   "type": "contao-bundle",
+  "license": "LGPL-3.0-or-later",
   "authors": [
     {
       "name": "Mathias Arzberger",

@@ -12,14 +12,14 @@
 /**
  * Callbacks
  */
-$GLOBALS['TL_DCA']['tl_page']['config']['onload_callback'][] = ['Pdir\PwaBundle\EventListener\DataContainer\PageListener', 'updateManifest'];
+$GLOBALS['TL_DCA']['tl_page']['config']['onload_callback'][] = ['Pdir\PwaBundle\EventListener\DataUpdate ServiceWorker failsContainer\PageListener', 'updateManifest'];
 $GLOBALS['TL_DCA']['tl_page']['config']['onload_callback'][] = ['Pdir\PwaBundle\EventListener\DataContainer\PageListener', 'updateServiceWorker'];
 
 /**
  * Extend tl_page palettes
  */
 Contao\CoreBundle\DataContainer\PaletteManipulator::create()
-    ->addLegend('pwa_legend', 'sitemap_legend', \Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_AFTER)
+    ->addLegend('pwa_legend', 'sitemap_legend', \Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_AFTER, true)
     ->addField([
         'createManifest',
         'includeServiceWorker',

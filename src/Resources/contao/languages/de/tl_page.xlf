@@ -1,117 +1,33 @@
 <?xml version="1.0" ?><xliff version="1.1">
   <file datatype="php" original="src/Resources/contao/languages/en/tl_page.php" source-language="en" target-language="de">
     <body>
-      <trans-unit id="tl_page.manifest_legend">
-        <source>Manifest Einstellungen</source>
-        <target>Manifest settings</target>
+      <trans-unit id="tl_page.pwa_legend">
+        <source>PWA Einstellungen</source>
+        <target>PWA settings</target>
       </trans-unit>
       <trans-unit id="tl_page.createManifest.0">
         <source>Enable manifest</source>
         <target>Manifest aktivieren</target>
       </trans-unit>
       <trans-unit id="tl_page.createManifest.1">
-        <source>Enable manifest creation for this root page</source>
-        <target>Manifest Generierung für diese Startseite aktivieren</target>
+        <source>Enable manifest creation for this root page.</source>
+        <target>Manifest Generierung für diese Startseite aktivieren.</target>
       </trans-unit>
-      <trans-unit id="tl_page.manifestAlias.0">
-        <source>Manifest file name</source>
-        <target>Manifest Dateiname</target>
+      <trans-unit id="tl_page.includeServiceWorker.0">
+        <source>Enable service worker</source>
+        <target>Service worker aktivieren</target>
       </trans-unit>
-      <trans-unit id="tl_page.manifestAlias.1">
-        <source>Please enter the name of the manifest file without extension.</source>
-        <target>Bitte geben Sie hier den Manifest Dateinamen ohne Dateiendung an.</target>
+      <trans-unit id="tl_page.includeServiceWorker.1">
+        <source>Enable service worker creation for this root page.</source>
+        <target>Service worker Generierung für diese Startseite aktivieren.</target>
       </trans-unit>
-      <trans-unit id="tl_page.manifestBackgroundColor.0">
-        <source>Background color</source>
-        <target>Hintergrundfarbe</target>
+      <trans-unit id="tl_page.pwaConfig.0">
+        <source>Select pwa config settings</source>
+        <target>PWA Konfiguration wählen</target>
       </trans-unit>
-      <trans-unit id="tl_page.manifestBackgroundColor.1">
-        <source>Defines the expected &quot;background color&quot; for the website. This value repeats what is already available in the site’s CSS, but can be used by browsers to draw the background color of a shortcut when the manifest is available before the stylesheet has loaded. This creates a smooth transition between launching the web application and loading the site's content.</source>
-        <target>Definiert die erwartete Hintergrundfarbe für die Webanwendung. Dieser Wert wiederholt, was bereits im Anwendungsstylesheet verfügbar ist, kann aber von Browsern verwendet werden, um die Hintergrundfarbe einer Webanwendung zu zeichnen, wenn das Manifest verfügbar ist, bevor das Stylesheet geladen ist. Dies schafft einen reibungslosen Übergang zwischen dem Starten der Webanwendung und dem Laden des Inhalts der Anwendung.</target>
-      </trans-unit>
-      <trans-unit id="tl_page.manifestDescription.0">
-        <source>Description</source>
-        <target>Beschreibung</target>
-      </trans-unit>
-      <trans-unit id="tl_page.manifestDescription.1">
-        <source>Provides a general description of what the pinned website does.</source>
-        <target>Bietet eine allgemeine Beschreibung dessen, was die Web-Anwendung tut.</target>
-      </trans-unit>
-      <trans-unit id="tl_page.manifestDir.0">
-        <source>Text direction</source>
-        <target>Textrichtung</target>
-      </trans-unit>
-      <trans-unit id="tl_page.manifestDir.1">
-        <source>Specifies the primary text direction for the name, short_name, and description members. Together with the lang member, it helps the correct display of right-to-left languages.</source>
-        <target>Definiert die primäre Textrichtung für die name, short_name und description Eigenschaften. Zusammen mit der lang Eigenschaft kann es helfen, die korrekte Darstellung von rechts-nach-links-Sprachen zu liefern.</target>
-      </trans-unit>
-      <trans-unit id="tl_page.manifestDisplay.0">
-        <source>Display mode</source>
-        <target>Anzeigemodus</target>
-      </trans-unit>
-      <trans-unit id="tl_page.manifestDisplay.1">
-        <source>Defines the developers preferred display mode for the website.</source>
-        <target>Definiert den vom Entwickler bevorzugten Anzeigemodus für die Webanwendung.</target>
-      </trans-unit>
-      <trans-unit id="tl_page.manifestDisplayLabel.0">
-        <source/>
-      </trans-unit>
-      <trans-unit id="tl_page.manifestDisplayLabel.1">
-        <source/>
-      </trans-unit>
-      <trans-unit id="tl_page.manifestIcons.0">
-        <source>Icons</source>
-        <target>Symbole</target>
-      </trans-unit>
-      <trans-unit id="tl_page.manifestIcons.1">
-        <source>Specifies an array of image files that can serve as application icons, depending on context. For example, they can be used to represent the web application amongst a list of other applications, or to integrate the web application with an OS's task switcher and/or system preferences.</source>
-        <target>Gibt ein Array von Bildobjekten an, die als Anwendungssymbole in verschiedenen Kontexten dienen können. Zum Beispiel können sie verwendet werden, um die Webanwendung unter einer Liste anderer Anwendungen darzustellen oder die Webanwendung mit einem Task-Switcher und / oder Systemeinstellungen eines Betriebssystems zu integrieren.</target>
-      </trans-unit>
-      <trans-unit id="tl_page.manifestName.0">
-        <source>Name</source>
-        <target>App Name</target>
-      </trans-unit>
-      <trans-unit id="tl_page.manifestName.1">
-        <source>Provides a human-readable name for the site when displayed to the user.</source>
-        <target>Stellt einen menschlich lesbaren Namen für die Anwendung bereit, wie sie dem Benutzer angezeigt werden soll, zum Beispiel unter einer Liste anderer Anwendungen oder als Label für ein Symbol.</target>
-      </trans-unit>
-      <trans-unit id="tl_page.manifestOrientation.0">
-        <source>Default orientation</source>
-        <target>Standardausrichtung</target>
-      </trans-unit>
-      <trans-unit id="tl_page.manifestOrientation.1">
-        <source>Defines the default orientation for all the website's top level browsing contexts.</source>
-        <target>Definiert die Standardausrichtung für alle Top-Level der Webanwendung Browsing-Kontexte.</target>
-      </trans-unit>
-      <trans-unit id="tl_page.manifestOrientationLabel.0">
-        <source/>
-      </trans-unit>
-      <trans-unit id="tl_page.manifestOrientationLabel.1">
-        <source/>
-      </trans-unit>
-      <trans-unit id="tl_page.manifestShortName.0">
-        <source>Short name</source>
-        <target>Kurzname</target>
-      </trans-unit>
-      <trans-unit id="tl_page.manifestShortName.1">
-        <source>Provides a short human-readable name for the application. This is intended for when there is insufficient space to display the full name of the web application, like device homescreens.</source>
-        <target>Bietet einen kurzen menschlich lesbaren Namen für die Anwendung. Dies ist für den Einsatz vorgesehen, wo nicht genügend Platz vorhanden ist, um den vollständigen Namen der Webanwendung anzuzeigen.</target>
-      </trans-unit>
-      <trans-unit id="tl_page.manifestStartUrl.0">
-        <source>Start url</source>
-        <target>Start URL</target>
-      </trans-unit>
-      <trans-unit id="tl_page.manifestStartUrl.1">
-        <source>The URL that loads when a user launches the application (e.g. when added to home screen), typically the index. Note that this has to be a relative URL, relative to the manifest url.</source>
-        <target>Gibt die URL an, die geladen wird, wenn ein Benutzer die Anwendung von einem Gerät startet (bspw. vom startbildschirm seines Smartphones). Wenn als relative URL angegeben, ist die Basis-URL die URL des Manifests.</target>
-      </trans-unit>
-      <trans-unit id="tl_page.manifestThemeColor.0">
-        <source>Theme color</source>
-        <target>Standardfarbe des Themes</target>
-      </trans-unit>
-      <trans-unit id="tl_page.manifestThemeColor.1">
-        <source>Defines the default theme color for an application. This sometimes affects how the OS displays the site (e.g., on Android's task switcher, the theme color surrounds the site).</source>
-        <target>Definiert die Standardthemafarbe für eine Anwendung. Dies beeinflusst manchmal, wie die Anwendung vom Betriebssystem angezeigt wird (z. B. auf Android-Task-Switcher, die Themenfarbe umgibt die Anwendung). </target>
+      <trans-unit id="tl_page.pwaConfig.1">
+        <source>Select the pwa config settings for this root page.</source>
+        <target>Wähle die passende PWA KOnfiguration für diese Startseite.</target>
       </trans-unit>
     </body>
   </file>
